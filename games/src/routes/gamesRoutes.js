@@ -2,11 +2,11 @@ const express = require("express")
 const  router = express.Router()
 const controller = require("../controller/gamesController")
 
-router.get("/lista", controller.gamesLista)
-router.get("/buscarjogo/:id", controller.buscaJogo)
-router.post("/cadastrar", controller.cadastraJogo)
-router.put("/atualizar/:id", controller.atualizaJogo)
-router.delete("/deletar/:id", controller.deletaJogo)
-router.patch("/liked/:id", controller.likedGame)
+router.get("/", controller.gamesLista)
+router.get("/:id", controller.buscaJogo)
+router.post("/", controller.cadastraJogo)
+router.put("/:id", controller.atualizaJogo)
+router.delete("/:id", controller.deletaJogo)
+router.patch("/:id", controller.likedGame)
 
 module.exports = router
