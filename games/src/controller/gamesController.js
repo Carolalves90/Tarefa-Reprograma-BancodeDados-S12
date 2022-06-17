@@ -57,22 +57,14 @@ const deletaJogo = (request, response) => {
 
 const likedGame = (request, response) => {
     const idRequest = request.params.id
-    const likeRequest = request.body.liked
 
-    let gameIndex = games.find(game => game.id == idRequest)
-    
-    if (gameIndex) {
-        gameIndex.liked = likeRequest
-
-        response.status(200).json({
-            message: "Jogo alterado com sucesso",
-            games
-        })
-    } else {
-        response.status(404).json({
-            message: "Jogo não encontrado"
-        })
-    }
+    games.findByIdAndUpdate(id, {$set:request.body.liked}, (err) => {
+        if(!err) {
+            response.status(200).send({message:"Liked do jogo atualizado com sucesso"})
+        } else {
+            response.status(500).send({message:err.message})
+        }
+    })
 }
 
 module.exports ={
