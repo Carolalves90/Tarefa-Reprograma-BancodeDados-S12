@@ -32,22 +32,15 @@ const cadastraJogo = (request, response) => {
 }
 
 const atualizaJogo = (request, response) => {
-    try{
-        const idRequest = request.params.id
-        let updateRequest = request.body
+    const idRequest = request.params.id
 
-        let gameFound = games.findIndex(game => game.id == idRequest)
-        games.splice(gameFound, 1, updateRequest)
-
-        response.status(201).json({
-            message: "Jogo atualizado",
-            games
-        })
-    } catch (err) {
-        response.status(500).send({
-            message: "Erro ao atualizar"
-        })
-    }
+    games.findByIdAndUpdate(id, {$set: request.body},(err) => {
+        if(!err){
+            response.status(200).send({message:"Jogo atualizado com sucesso"})
+        } else {
+            response.status(500).send({message:err.message})
+        }
+    })
 }
 
 const deletaJogo = (request, response) => {
