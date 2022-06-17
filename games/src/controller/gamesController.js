@@ -44,21 +44,15 @@ const atualizaJogo = (request, response) => {
 }
 
 const deletaJogo = (request, response) => {
-    try{
-        const idRequest = request.params.id
-        const gameIndex = games.findIndex(game => game.id == idRequest)
+    const idRequest = request.params.id
 
-        games.splice(gameIndex, 1)
-
-        response.status(200).send({
-            message: "Jogo deletado",
-            games
-        })
-    } catch (err){
-        response.status(400).send({
-            message: "Erro ao deletar Jogo"
-        })
-    }
+    games.findByIdAndDelete(id, (err) => {
+        if(!err) {
+            response.status(200).send({message:"Jogo deletado com sucesso"})
+        } else {
+            response.status(500).send({message:err.message})
+        }
+    })
 }
 
 const likedGame = (request, response) => {
