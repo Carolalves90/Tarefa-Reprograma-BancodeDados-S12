@@ -9,7 +9,7 @@ const gamesLista = (request, response) => {
 const buscaJogo = (request, response) => {
     const idRequest = request.params.id
 
-    games.findById(id, (err, games) => {
+    games.findById(idRequest, (err, games) => {
         if(err){
             response.status(400).send({message: `${err.message} - id do jogo não encontrado`})
         } else {
@@ -34,7 +34,7 @@ const cadastraJogo = (request, response) => {
 const atualizaJogo = (request, response) => {
     const idRequest = request.params.id
 
-    games.findByIdAndUpdate(id, {$set: request.body},(err) => {
+    games.findByIdAndUpdate(idRequest, {$set: request.body},(err) => {
         if(!err){
             response.status(200).send({message:"Jogo atualizado com sucesso"})
         } else {
@@ -46,7 +46,7 @@ const atualizaJogo = (request, response) => {
 const deletaJogo = (request, response) => {
     const idRequest = request.params.id
 
-    games.findByIdAndDelete(id, (err) => {
+    games.findByIdAndDelete(idRequest, (err) => {
         if(!err) {
             response.status(200).send({message:"Jogo deletado com sucesso"})
         } else {
@@ -58,7 +58,7 @@ const deletaJogo = (request, response) => {
 const likedGame = (request, response) => {
     const idRequest = request.params.id
 
-    games.findByIdAndUpdate(id, {$set:request.body.liked}, (err) => {
+    games.findByIdAndUpdate(idRequest, {$set: request.body.liked}, (err) => {
         if(!err) {
             response.status(200).send({message:"Liked do jogo atualizado com sucesso"})
         } else {
